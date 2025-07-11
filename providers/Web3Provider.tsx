@@ -1,16 +1,16 @@
 "use client";
 
 import { createConfig, WagmiProvider, http } from 'wagmi';
-import { base } from 'wagmi/chains';
+import { baseSepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { setApiKey } from '@zoralabs/coins-sdk';
 import { createPublicClient } from 'viem';
 
 // Configure chains for the app
 const config = createConfig({
-  chains: [base],
+  chains: [baseSepolia],
   transports: {
-    [base.id]: http(process.env.NEXT_PUBLIC_BASE_RPC_URL),
+    [baseSepolia.id]: http(process.env.NEXT_PUBLIC_BASE_SEPOLIA_RPC_URL),
   },
 });
 
@@ -19,8 +19,8 @@ const queryClient = new QueryClient();
 
 // Create public client for Zora interactions
 export const publicClient = createPublicClient({
-  chain: base,
-  transport: http(process.env.NEXT_PUBLIC_BASE_RPC_URL),
+  chain: baseSepolia,
+  transport: http(process.env.NEXT_PUBLIC_BASE_SEPOLIA_RPC_URL),
 });
 
 // Initialize Zora Coins SDK with API key

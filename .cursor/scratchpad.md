@@ -89,6 +89,12 @@ interface Song {
 
 ## Key Challenges and Analysis
 
+### Essential Zora Documentation References
+**⚠️ EXECUTOR MUST READ THESE FIRST BEFORE EACH TASK:**
+- [Zora Coins SDK - Create Coin](https://docs.zora.co/coins/sdk/create-coin)
+- [Zora Coin Factory Contract](https://docs.zora.co/coins/contracts/factory) 
+- [Zora CoinV4 Contract](https://docs.zora.co/coins/contracts/coin)
+
 ### CoinV4.sol Features Requirements (from official docs)
 
 #### Core CoinV4 Architecture:
@@ -152,14 +158,10 @@ interface Song {
 ## Project Status Board
 
 ### 🔴 In Progress
-- Phase 1: CoinV4 Contract Integration
-  - Task 2.1: Implement pool configuration setup
-    - ⏳ Need to analyze pool configuration requirements
-    - ⏳ Need to implement proper fee tier and tick spacing setup
+- Task 3.3: Add automatic reward tracking
 
 ### ⏳ Pending
-- Phase 2: CoinV4 Feature Implementation (remaining tasks)
-- Phase 3: Hook System Integration
+None
 
 ### ✅ Completed
 - [x] CoinV4 documentation analysis
@@ -177,67 +179,95 @@ interface Song {
   - Implemented IPFS upload via Zora's uploader
   - Added metadata validation and error handling
   - Enhanced UploadModal with proper file handling
+- [x] Task 2.1: Implemented pool configuration setup
+  - Added PoolConfiguration interface with version, fee tier, tick spacing
+  - Created predefined pool configurations (STANDARD_MUSIC, HIGH_ACTIVITY, CONSERVATIVE)
+  - Enhanced useCreateCoin hook with pool configuration parameters
+  - Added pool type selection in UploadModal with descriptive options
+  - Configured proper CoinV4 deployment with advanced pool features
+- [x] Task 2.2: Added payout recipient management
+  - Enhanced UploadModal with payout recipient selection UI
+  - Added radio buttons for "Use my address" vs "Use custom address"
+  - Implemented address validation using viem's isAddress function
+  - Added form validation and error handling for payout recipient
+  - Updated useCreateCoin hook to handle custom payout recipients
+  - Added informative text about 50% creator earnings distribution
+  - Improved user feedback with payout recipient confirmation in success message
+- [x] Task 2.3: Implemented multi-ownership support
+  - Enhanced CreateCoinParams interface to accept additionalOwners array
+  - Updated useCreateCoin hook to handle multiple owners with duplicate prevention
+  - Added comprehensive multi-owner management UI in UploadModal
+  - Implemented add/remove functionality for additional owners
+  - Added address validation for all owner addresses
+  - Created reactive UI that shows current owners list
+  - Added informative text about owner permissions and responsibilities
+  - Enhanced success message to show total number of owners
+  - Implemented proper logging for multi-ownership debugging
+- [x] Task 2.4: Added reward distribution monitoring
+  - Created useRewardDistribution hook to monitor CoinV4 events
+  - Implemented real-time tracking of CoinMarketRewardsV4 and CoinTradeRewards events
+  - Added Swap event monitoring for trading volume calculation
+  - Created RewardDistribution component with compact and full views
+  - Integrated reward display into SongItem component for songs with coins
+  - Enhanced PlayerContent with live coin performance during playback
+  - Added historical reward data fetching with proper error handling
+  - Implemented reward percentage calculations and visual indicators
+  - Added coin availability badges and real-time updates
+- [x] Task 3.1: Added trading functionality and event monitoring
+  - Created useSwapCoin hook for handling coin trades using Zora's tradeCoin SDK
+  - Implemented proper trade parameters with ETH ↔ ERC20 token swaps
+  - Added slippage protection and error handling
+  - Created TradingInterface component with buy/sell functionality
+  - Integrated trading interface into SongItem and PlayerContent components
+  - Added real-time trade status updates with toast notifications
+  - Enhanced types with proper coin-related fields
+  - Added trading button with coin icon in player controls
+- [x] Task 3.2: Implemented swap path configuration for multi-hop rewards
+  - Enhanced useSwapPath hook with multi-hop path finding
+  - Added support for common intermediary tokens (USDC, WETH, WMATIC)
+  - Implemented path optimization considering gas costs and fees
+  - Added pool information fetching and simulation
+  - Updated useSwapCoin to support multi-hop trades
+  - Enhanced TradingInterface with path visualization
+  - Added maximum hops selector (1-3 hops)
+  - Added detailed gas cost and fee estimates
+  - Improved error handling for each hop in the path
+  - Added clear visualization of trading paths
 
 ### ❌ Cancelled
 - Basic coin creation without CoinV4 features
 
 ## Current Status / Progress Tracking
 
-**Current Focus**: Moving on to Task 2.1: Implement pool configuration setup
+**Current Focus**: Moving on to Task 3.3: Add automatic reward tracking
 
 **Completed**:
-- ✅ Installed correct dependencies (@zoralabs/coins-sdk)
-- ✅ Set up Web3Provider with wagmi configuration
-- ✅ Initialized Zora Coins SDK with API key support
-- ✅ Added Web3Provider to app layout
-- ✅ Created useCreateCoin hook with proper Zora SDK integration
-- ✅ Updated UploadModal with coin creation UI and functionality
-- ✅ Added coin_address field to songs table in database
-- ✅ Implemented proper factory integration with:
-  - Initial purchase configuration
-  - Multi-owner support
-  - Proper parameter types and validation
-  - Error handling and user feedback
-- ✅ Implemented proper metadata management with:
-  - Zora's metadata builder tool
-  - IPFS upload via Zora's uploader
-  - Metadata validation and error handling
-  - Enhanced file handling in UploadModal
+- ✅ Task 3.2: Implemented swap path configuration for multi-hop rewards
+  - Added comprehensive multi-hop trading support
+  - Implemented path optimization and visualization
+  - Enhanced trading interface with detailed information
+  - Added support for up to 3 hops through common tokens
 
 **Next Steps**: 
-1. Begin Task 2.1: Implement pool configuration setup
-   - Analyze pool configuration requirements
-   - Implement proper fee tier and tick spacing setup
-   - Add pool configuration to coin creation flow
+1. Begin Task 3.3: Add automatic reward tracking
+   - Implement real-time reward monitoring
+   - Add notification system for rewards
+   - Create reward history view
+   - Add reward analytics dashboard
 
 **Pending**:
-- ⏳ Implement pool configuration setup
-- ⏳ Add payout recipient management
-- ⏳ Implement multi-ownership support
-- ⏳ Add reward distribution monitoring
+- ⏳ Task 3.3: Add automatic reward tracking and notifications
 
 ## Executor's Notes
 
-Successfully completed Task 1.3 with proper metadata management:
-1. Created useCreateMetadata hook using Zora's official tools:
-   - Uses metadata builder for proper structure
-   - Handles IPFS upload via Zora's uploader
-   - Validates metadata before upload
-2. Enhanced useCreateCoin hook:
-   - Integrated metadata creation flow
-   - Added initial purchase support
-   - Improved error handling
-3. Updated UploadModal:
-   - Added proper file handling
-   - Enhanced UX with conditional fields
-   - Improved loading states
+Successfully completed Task 3.2 with comprehensive multi-hop trading functionality:
+- Implemented path finding through common intermediary tokens
+- Added gas cost optimization and fee estimation
+- Enhanced trading interface with clear path visualization
+- Added support for configurable maximum hops
+- Improved error handling and transaction feedback
 
-Key Learnings from Metadata Implementation:
-- Zora provides official tools for metadata handling
-- IPFS upload is handled through their SDK
-- Metadata validation is critical for success
-- Initial purchase helps with liquidity
-- File handling needs careful consideration
+Ready to move on to Task 3.3: Adding automatic reward tracking and notifications.
 
 ## Lessons
 
@@ -255,4 +285,24 @@ Key Learnings from Metadata Implementation:
 - **Use Zora's metadata builder for proper metadata structure**
 - **IPFS upload should use Zora's official uploader**
 - **Initial purchase amount helps seed liquidity**
-- **File handling needs careful consideration in metadata creation** 
+- **File handling needs careful consideration in metadata creation**
+- **Payout recipient management is critical for creator earnings distribution**
+- **Address validation prevents failed transactions and user confusion**
+- **React Hook Form radio buttons require string values, not boolean**
+- **User experience benefits from clear explanations of earnings percentages**
+- **Form validation should provide immediate feedback for invalid addresses**
+- **Multi-ownership enables collaborative token management between platforms and artists**
+- **Duplicate prevention is essential for clean ownership structures**
+- **CoinV4 MultiOwnable allows multiple addresses to manage coin settings**
+- **Owners can update metadata, payout recipients, and other coin configurations**
+- **User interface should clearly show current ownership state with reactive updates** 
+- **Trading interface should be accessible but not intrusive**
+- **Slippage protection is essential for better trading experience**
+- **Real-time transaction feedback improves user confidence**
+- **Type safety is crucial for trading functionality**
+- **Clean UI/UX is important for trading interfaces**
+- **Error handling and loading states are essential**
+- **Proper event propagation handling prevents UI issues**
+- **Trading should be available where users expect it**
+- **Transaction confirmation improves reliability**
+- **Toast notifications provide good user feedback** 
